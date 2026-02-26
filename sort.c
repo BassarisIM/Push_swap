@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:15:56 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:15:50 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 19:22:51 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,53 +87,60 @@ static int	sort_three(t_list *list)
 
 static int	petits_cas(t_list *list)
 {
-	if (a->len == 0 || a->len == 1)
+	if (list->len == 0 || list->len == 1)
 		return (0);
-	if (a->len == 2)
-		return (sort_two(a));
+	if (list->len == 2)
+		return (sort_two(list));
 	else
-		return (sort_three(a));
+		return (sort_three(list));
 }
 
-int	small_ontop(t_list *list)
+static int	small_ontop(t_list *list)
 {
-	int		small;
 	t_node	*small;
+	int		count;
 
+	count = 0;
 	small = find_indice(list, 0);
-	if (small->stack_pos < a->len / 2)
+	if (small->stack_pos < list->len / 2)
 	{
-		while (a->first->indice != 0)
-			nb_ops += rotate_a(a);
+		while (list->first->indice != 0)
+			count += rotate_a(list);
 	}
 	else
 	{
-		while (a->first->indice != 0)
-			nb_ops += rrotate_a(a);
+		while (list->first->indice != 0)
+			count += rrotate_a(list);
 	}
-	return (nb_ops);
+	return (count);
 }
 
 int	turkish_sort(t_list *a, t_list *b, int nb_ops)
 {
 	t_boite	*cheap;
+	int		nb;
 
 	if (a->len < 4)
 		return (nb_ops += petits_cas(a));
 	nb_ops += push_b(b, a);
 	if (a->len > 3)
 		nb_ops += push_b(b, a);
-	cheap = init_boite(void);
+	cheap = init_boite();
 	if (cheap == NULL)
 		return (0);
 	while (a->len > 3)
 	{
-		cheap = find_cheapest(a, b, cheap);
-		nb_ops += move_cheapest(a, b, cheap);
+		if (!find_cheapest(a, b, cheap))
+			return (0);
+		nb_ops += move_cheapest_atob(a, b, cheap);
 	}
 	nb_ops += sort_three(a);
 	while (b->len != 0)
-		nb_ops += merge_btoa(a, b);
-	nb_ops += small_ontop(a);
-	return (nb_ops);
+	{
+		nb = merge_btoa(a, b);
+		if (nb == 0)
+			return (0);
+		nb_ops += nb;
+	}
+	return (nb_ops += small_ontop(a), nb_ops);
 }

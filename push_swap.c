@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:59:01 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 22:39:53 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 19:12:31 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	main(int argc, char **argv)
 	if (!indicage(list))
 		return (free_anb(list, b), 0);
 	print_list_ar(list);
-	temp = turkish_sort(list, b);
+	temp = turkish_sort(list, b, nb_ops);
 	if (temp == 0)
 		return (free_anb(list, b), 0);
 	nb_ops += temp;
