@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:42:33 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/11 19:59:38 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:59:24 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	doublons(t_list *list)
 	t_node	*cur;
 	t_node	*base;
 
+	if (list->first == NULL)
+		return (1);
 	base = list->first;
 	while (base->next != NULL)
 	{
@@ -46,7 +48,7 @@ int	is_sep(char c)
 	return (0);
 }
 
-int	isok(char **argv, int i, int j)
+static int	isok(char **argv, int i, int j)
 {
 	if (is_sep(argv[i][j]) || ft_isdigit(argv[i][j]))
 		return (1);

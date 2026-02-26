@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 16:15:09 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/17 22:39:19 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:17:50 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,10 @@ int	addnb(char *str, t_list *list)
 	int		nb;
 
 	nb = atoicherry(str);
-	ft_printf_fd(1, str);
-	ft_printf_fd(1, "\n");
 	new = ft_newnode(&nb);
 	if (new == NULL)
 		return (0);
-	if (ft_listadd_back(list, new) == 0)
-		return (0);
+	ft_listadd_back(list, new);
 	return (1);
 }
 
@@ -75,8 +72,8 @@ int	fillist(char **argv, t_list *list)
 	int	j;
 	int	reussi;
 
-	i = 1;
-	while (argv[i])
+	i = 0;
+	while (argv[++i])
 	{
 		j = 0;
 		while (argv[i][j])
@@ -94,7 +91,6 @@ int	fillist(char **argv, t_list *list)
 			}
 			j++;
 		}
-		i++;
 	}
 	return (1);
 }

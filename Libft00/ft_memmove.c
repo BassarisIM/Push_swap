@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 13:56:19 by sohollar          #+#    #+#             */
-/*   Updated: 2025/12/01 17:09:50 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:00:48 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	unsigned char	*d;
 	unsigned char	*s;
 
-	if (dest == NULL && src == NULL)
-		return (NULL);
+	if (dest == NULL || src == NULL)
+		return (dest);
 	d = (unsigned char *)dest;
 	s = (unsigned char *)src;
 	i = 0;

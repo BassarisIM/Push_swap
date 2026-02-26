@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:23:19 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/17 22:05:35 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:20:40 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	ft_printf_fd(int fd, const char *s, ...)
 	va_list	args;
 
 	r = 0;
-	va_start(args, s);
 	if (s == NULL)
 		return (-1);
+	va_start(args, s);
 	while (*s != '\0')
 	{
 		if (*s != '%')
@@ -78,7 +78,7 @@ int	ft_printf_fd(int fd, const char *s, ...)
 			if (ft_isinset("cspdiuxX%", *s) == 1)
 				r += ft_triage_fd(s, args, fd);
 			else
-				return (0);
+				return (va_end(args), 0);
 		}
 		s++;
 	}

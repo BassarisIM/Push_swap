@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 20:18:27 by sohollar          #+#    #+#             */
-/*   Updated: 2025/12/05 17:46:42 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:00:31 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	unsigned char	*d;
 	unsigned char	*s;
 
-	if (dest == NULL && src == NULL)
-		return (NULL);
+	if (dest == NULL || src == NULL)
+		return (dest);
 	d = (unsigned char *)dest;
 	s = (unsigned char *)src;
 	i = 0;

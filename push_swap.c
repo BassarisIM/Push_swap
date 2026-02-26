@@ -6,13 +6,13 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:59:01 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/17 22:42:01 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:39:53 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_freenodes(t_list	*list)
+static void	ft_freenodes(t_list	*list)
 {
 	t_node	*a;
 	t_node	*b;
@@ -33,6 +33,18 @@ void	ft_freenodes(t_list	*list)
 	a->pre = NULL;
 	free(a);
 	free(b);
+}
+
+void	ft_freelist(t_list *list)
+{
+	ft_freenodes(list);
+	free(list);
+}
+
+static void	free_anb(t_list *a, t_list *b)
+{
+	ft_freelist(a);
+	ft_freelist(b);
 }
 
 long	atoicherry(char *str)
@@ -57,37 +69,11 @@ long	atoicherry(char *str)
 	return (nb * sign);
 }
 
-void	print_list_ar(t_list *list)
-{
-	t_node	*test;
-
-	if (list == NULL)
-		return ;
-	if (list->first == NULL)
-	{
-		ft_printf_fd(1, "\n");
-		return ;
-	}
-	test = list->first;
-	ft_printf_fd(1, "%d\n", test->nb);
-	while (test->next != NULL)
-	{
-		test = test->next;
-		ft_printf_fd(1, "%d\n", test->nb);
-	}
-	ft_printf_fd(1, "\n");
-	while (test != NULL)
-	{
-		ft_printf_fd(1, "%d\n", test->nb);
-		test = test->pre;
-	}
-	ft_printf_fd(1, "\n");
-}
-
 /*
-** @brief cette fonction sert a imprimer une erreur, free la list et return un error code
- */
-int	ft_error(t_list *list, char *str, int error_code)
+** @brief cette fonction sert a imprimer \
+	erreur, free la list et return un error code
+*/
+static int	ft_error(t_list *list, char *str, int error_code)
 {
 	ft_freenodes(list);
 	free(list);
@@ -99,25 +85,38 @@ int	main(int argc, char **argv)
 {
 	t_list	*list;
 	t_list	*b;
-	int		i;
-	int		valid;
+	int		nb_ops;
+	int		temp;
 
-	i = 1;
+	nb_ops = 0;
 	if (argc == 1)
 		return (0);
 	if (!checknb(argv))
 		return (ft_printf_fd(2, "Error not numbers\n"), 0);
 	list = ft_newlist();
-	if (list == NULL)
+	b = ft_newlist();
+	if (list == NULL || b == NULL)
 		return (0);
-	valid = fillist(argv, list);
-	if (!valid)
-		return (ft_printf_fd(2, "Error invalid list\n"), 0);
+	if (!fillist(argv, list))
+		return (ft_error(list, "Error invalid list\n", 0));
 	if (!doublons(list))
 		return (ft_error(list, "Error duplicate numbers\n", 0));
-	ft_printf_fd(1, "Printing default list\n");
+	if (!indicage(list))
+		return (free_anb(list, b), 0);
 	print_list_ar(list);
-	b = ft_newlist();
+	temp = turkish_sort(list, b);
+	if (temp == 0)
+		return (free_anb(list, b), 0);
+	nb_ops += temp;
+	ft_printf_fd(1, "%d\n", argc - 1);
+	ft_printf_fd(1, "%d\n", nb_ops);
+	print_list_ar(list);
+	free_anb(list, b);
+	return (0);
+}
+	/*print_list_ar(list);
+	print_indices_ar(list);
+	ft_printf_fd(1, "Printing default list\n");
 	swap_a(list);
 	swap_b(b);
 	rotate_b(b);
@@ -139,10 +138,4 @@ int	main(int argc, char **argv)
 	ft_printf_fd(1, "Printing default list\n");
 	print_list_ar(list);
 	ft_printf_fd(1, "Printing B\n");
-	print_list_ar(b);
-	ft_freenodes(list);
-	ft_freenodes(b);
-	free(b);
-	free(list);
-	return (0);
-}
+	print_list_ar(b); */

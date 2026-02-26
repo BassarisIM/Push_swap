@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 20:24:58 by sohollar          #+#    #+#             */
-/*   Updated: 2025/12/11 16:19:59 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:08:20 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ char	**ft_split(char const *s, char c)
 	{
 		if (s[i] != c && (i == 0 || (s[i - 1] == c)))
 		{
-			tab[k] = ft_sousmalloc(tab, ft_strlenw(&s[i], c), k);
-			if (tab[k] == NULL)
+			if (ft_sousmalloc(tab, ft_strlenw(&s[i], c), k) == NULL)
 				return (NULL);
 			ft_remplir(tab[k], &s[i], c);
 			k++;

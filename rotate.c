@@ -6,16 +6,18 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:16:58 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/17 22:21:38 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:56:50 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rotate_ops(t_list *list)
+static void	rotate_ops(t_list *list)
 {
 	t_node	*cur;
 
+	if (list->first == NULL || list->first->next == NULL)
+		return ;
 	cur = list->first;
 	while (cur->next != NULL)
 		cur = cur->next;
@@ -24,35 +26,28 @@ void	rotate_ops(t_list *list)
 	list->first->next->pre = NULL;
 	list->first = list->first->next;
 	cur->next->next = NULL;
+	apply_depth(list);
+	apply_stack_pos(list);
 }
 
-void	rotate_a(t_list *a)
+int	rotate_a(t_list *a)
 {
-	if (a->first == NULL || a->first->next == NULL)
-		;
-	else
-		rotate_ops(a);
+	rotate_ops(a);
 	ft_printf_fd(1, "ra\n");
+	return (1);
 }
 
-void	rotate_b(t_list *b)
+int	rotate_b(t_list *b)
 {
-	if (b->first == NULL || b->first->next == NULL)
-		;
-	else
-		rotate_ops(b);
+	rotate_ops(b);
 	ft_printf_fd(1, "rb\n");
+	return (1);
 }
 
-void	rotate_anb(t_list *a, t_list *b)
+int	rotate_anb(t_list *a, t_list *b)
 {
-	if (a->first == NULL || a->first->next == NULL)
-		;
-	else
-		rotate_ops(a);
-	if (b->first == NULL || b->first->next == NULL)
-		;
-	else
-		rotate_ops(b);
+	rotate_ops(a);
+	rotate_ops(b);
 	ft_printf_fd(1, "rr\n");
+	return (1);
 }
