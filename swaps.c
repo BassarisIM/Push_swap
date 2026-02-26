@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:45:39 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 21:57:10 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:38:59 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	swap_ops(t_list *list)
 	list->first->pre = temp;
 	list->first = temp;
 	temp->pre = NULL;
-	apply_depth(list);
 	apply_stack_pos(list);
 }
 

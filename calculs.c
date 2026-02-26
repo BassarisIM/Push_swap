@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 22:19:01 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 19:33:31 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:49:37 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_boite	*cost(t_list *a, t_list *b, t_node *node)
 		return (NULL);
 	inf = target(b, node);
 	fill_boite(a, b, node, inf, boite);
-	fill_costs(a, b, node, inf, boite);
+	fill_costs(boite);
 	boite->idx = node->indice;
 	return (boite);
 }
@@ -83,12 +83,12 @@ int	find_cheapest(t_list *a, t_list *b, t_boite *cheap)
 
 int	move_cheapest_atob(t_list *a, t_list *b, t_boite *cheap)
 {
-	if (cheap->combi == "ra_rrb")
+	if (ft_strncmp(cheap->combi, "ra_rrb", 6) == 0)
 		return (ra_rrb(a, b, cheap) + push_b(b, a));
-	else if (cheap->combi == "rra_rb")
+	else if (ft_strncmp(cheap->combi, "rra_rb", 6) == 0)
 		return (rra_rb(a, b, cheap) + push_b(b, a));
-	else if (cheap->combi == "rr_diff")
+	else if (ft_strncmp(cheap->combi, "rr_diff", 7) == 0)
 		return (rr_diff(a, b, cheap) + push_b(b, a));
-	else if (cheap->combi == "rrr_diff")
+	else
 		return (rrr_diff(a, b, cheap) + push_b(b, a));
 }

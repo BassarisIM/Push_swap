@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:01:32 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 21:57:00 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:38:52 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	rrotate_ops(t_list *list)
 	cur->pre = NULL;
 	list->first->pre = cur;
 	list->first = cur;
-	apply_depth(list);
 	apply_stack_pos(list);
 }
 

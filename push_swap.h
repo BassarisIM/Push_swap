@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:27:10 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 19:33:39 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:38:27 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_node
 	int				nb;
 	int				indice;
 	int				stack_pos;
-	int				depth;
 	int				ismin;
 	int				ismax;
 	struct s_node	*next;
@@ -83,14 +82,14 @@ int		indicage(t_list *list);
 void	print_list_ar(t_list *list);
 //int		sort_simple(t_list *a, t_list *b, int nb_ops);
 int		turkish_sort(t_list *a, t_list *b, int nb_ops);
-void	apply_depth(t_list *list);
+//void	apply_depth(t_list *list);
 void	apply_stack_pos(t_list *list);
 void	apply_minmax(t_list *list);
 t_boite	*init_boite(void);
 int		find_cheapest(t_list *a, t_list *b, t_boite *cheap);
 int		move_cheapest_atob(t_list *a, t_list *b, t_boite *cheap);
 int		merge_btoa(t_list *a, t_list *b);
-void	fill_costs(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite);
+void	fill_costs(t_boite *boite);
 void	fill_boite(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite);
 t_node	*find_indice(t_list *list, int indice);
 //t_boite	*cost(t_list *a, t_list *b, t_node *node);
@@ -100,6 +99,5 @@ int		rr_diff(t_list *a, t_list *b, t_boite *boite);
 int		rra_rb(t_list *a, t_list *b, t_boite *boite);
 int		ra_rrb(t_list *a, t_list *b, t_boite *boite);
 int		move_cheapest_atob(t_list *a, t_list *b, t_boite *cheap);
-
 
 #endif

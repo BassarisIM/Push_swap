@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 18:13:04 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 21:54:19 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:38:39 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void	push_toempty(t_list *a, t_list *b)
 	a->first->next = NULL;
 	apply_stack_pos(a);
 	apply_stack_pos(b);
-	apply_depth(a);
-	apply_depth(b);
 	apply_minmax(a);
 	apply_minmax(b);
 }
@@ -35,8 +33,6 @@ static void	push_tonotempty(t_list *a, t_list *b)
 	a->first->stack_pos = 0;
 	apply_stack_pos(a);
 	apply_stack_pos(b);
-	apply_depth(a);
-	apply_depth(b);
 	apply_minmax(a);
 	apply_minmax(b);
 }

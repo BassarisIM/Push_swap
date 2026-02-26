@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:15:56 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 19:22:51 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:20:53 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,9 @@ int	turkish_sort(t_list *a, t_list *b, int nb_ops)
 		nb_ops += move_cheapest_atob(a, b, cheap);
 	}
 	nb_ops += sort_three(a);
-	while (b->len != 0)
-	{
-		nb = merge_btoa(a, b);
-		if (nb == 0)
-			return (0);
-		nb_ops += nb;
-	}
+	nb = merge_btoa(a, b);
+	if (nb == 0)
+		return (0);
+	nb_ops += nb;
 	return (nb_ops += small_ontop(a), nb_ops);
 }

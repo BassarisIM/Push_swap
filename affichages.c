@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:07:42 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 18:13:44 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:37:14 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,20 @@ void	print_list_ar(t_list *list)
 		return ;
 	}
 	test = list->first;
-	ft_printf_fd(1, "idx:%d, max:%d, min:%d, pos:%d, depth:%d, nb:%d\n",
+	ft_printf_fd(1, "idx:%d, max:%d, min:%d, pos:%d, nb:%d\n",
 		test->indice,
 		test->ismax,
 		test->ismin,
 		test->stack_pos,
-		test->depth,
 		test->nb);
 	while (test->next != NULL)
 	{
 		test = test->next;
-		ft_printf_fd(1, "idx:%d, max:%d, min:%d, pos:%d, depth:%d, nb:%d\n",
+		ft_printf_fd(1, "idx:%d, max:%d, min:%d, pos:%d, nb:%d\n",
 			test->indice,
 			test->ismax,
 			test->ismin,
 			test->stack_pos,
-			test->depth,
 			test->nb);
 	}
 	ft_printf_fd(1, "\n");
@@ -49,7 +47,6 @@ void	print_list_ar(t_list *list)
 		ft_printf_fd(1, "%d ", test->ismax);
 		ft_printf_fd(1, "%d ", test->ismin);
 		ft_printf_fd(1, "%d ", test->stack_pos);
-		ft_printf_fd(1, "%d ", test->depth);
 		ft_printf_fd(1, "%d\n", test->nb);
 		test = test->pre;
 	} */

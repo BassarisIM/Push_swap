@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 23:03:21 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 19:28:08 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:18:21 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,45 +40,45 @@ static int	minof_four(int a, int b, int c, int d)
 	return (temp);
 }
 
-static int	va(int nb)
+static int	min(int a, int b)
 {
-	if (nb >= 0)
-		return (nb);
+	if (a <= b)
+		return (a);
 	else
-		return (-nb);
+		return (b);
 }
 
 void	fill_boite(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite)
 {
-	boite->ra = na->indice;
-	boite->rra = a->len - na->indice;
-	boite->rb = nb->indice;
-	boite->rrb = b->len - nb->indice;
-	boite->rr = min(na->indice, nb->indice);
-	if (na->indice - nb->indice >= 0)
+	boite->ra = na->stack_pos;
+	boite->rra = a->len - na->stack_pos;
+	boite->rb = nb->stack_pos;
+	boite->rrb = b->len - nb->stack_pos;
+	boite->rr = min(na->stack_pos, nb->stack_pos);
+	if (na->stack_pos - nb->stack_pos >= 0)
 	{
-		boite->rr_diffa = na->indice - nb->indice;
+		boite->rr_diffa = na->stack_pos - nb->stack_pos;
 		boite->rr_diffb = 0;
 	}
 	else
 	{
 		boite->rr_diffa = 0;
-		boite->rr_diffb = nb->indice - na->indice;
+		boite->rr_diffb = nb->stack_pos - na->stack_pos;
 	}
-	boite->rrr = min(a->len - na->indice, b->len - nb->indice);
-	if ((a->len - na->indice) - (b->len - nb->indice) >= 0)
+	boite->rrr = min(a->len - na->stack_pos, b->len - nb->stack_pos);
+	if ((a->len - na->stack_pos) - (b->len - nb->stack_pos) >= 0)
 	{
-		boite->rrr_diffa = (a->len - na->indice) - (b->len - nb->indice);
+		boite->rrr_diffa = (a->len - na->stack_pos) - (b->len - nb->stack_pos);
 		boite->rrr_diffb = 0;
 	}
 	else
 	{
 		boite->rrr_diffa = 0;
-		boite->rrr_diffb = (b->len - nb->indice) - (a->len - na->indice);
+		boite->rrr_diffb = (b->len - nb->stack_pos) - (a->len - na->stack_pos);
 	}
 }
 
-void	fill_costs(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite)
+void	fill_costs(t_boite *boite)
 {
 	int	a;
 	int	b;
@@ -94,11 +94,11 @@ void	fill_costs(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite)
 	c = boite->rr_diff;
 	d = boite->rrr_diff;
 	boite->cost = minof_four(a, b, c, d);
-	if (minof_four == a)
+	if (boite->cost == a)
 		boite->combi = "ra_rrb";
-	if (minof_four == b)
+	if (boite->cost == b)
 		boite->combi = "rra_rb";
-	if (minof_four == c)
+	if (boite->cost == c)
 		boite->combi = "rr_diff";
 	else
 		boite->combi = "rrr_diff";

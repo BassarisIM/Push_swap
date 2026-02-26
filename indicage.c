@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 22:56:33 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 18:14:22 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:02:12 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,15 @@ void	apply_stack_pos(t_list *list)
 		cur->stack_pos = 0;
 		return ;
 	}
-	cur = list->first->next;
-	while (cur != NULL)
+	cur = list->first;
+	cur->stack_pos = 0;
+	while (cur->next != NULL)
 	{
-		cur->stack_pos = cur->pre->stack_pos + 1;
 		cur = cur->next;
+		cur->stack_pos = cur->pre->stack_pos + 1;
 	}
 }
-void	apply_depth(t_list *list)
+/* void	apply_depth(t_list *list)
 {
 	t_node	*cur;
 
@@ -128,7 +129,7 @@ void	apply_depth(t_list *list)
 			cur->depth = -1;
 		cur = cur->next;
 	}
-}
+} */
 
 static void	report_indices(t_list *list, t_list *temp)
 {
@@ -170,5 +171,5 @@ int	indicage(t_list *list)
 	tri_n_indices(temp);
 	report_indices(list, temp);
 	ft_freelist(temp);
-	return (apply_minmax(list), apply_stack_pos(list), apply_depth(list), 1);
+	return (apply_minmax(list), apply_stack_pos(list), 1);
 }
