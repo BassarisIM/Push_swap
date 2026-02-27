@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 22:19:01 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 22:49:37 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:34:43 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ static t_node	*target(t_list *b, t_node *node)
 	}
 	else
 	{
+		while (cur->indice > node->indice)
+			cur = cur->next;
 		temp = cur->indice;
+		cur = b->first;
 		while (cur != NULL)
 		{
-			if (cur->indice > temp && cur->indice < node->indice)
+			if (cur->indice < node->indice && cur->indice > temp)
 				temp = cur->indice;
 			cur = cur->next;
 		}
@@ -47,38 +50,34 @@ static t_node	*target(t_list *b, t_node *node)
 	return (find_indice(b, temp));
 }
 
-static t_boite	*cost(t_list *a, t_list *b, t_node *node)
+static void	cost(t_list *a, t_list *b, t_node *node, t_boite *boite)
 {
-	t_node	*inf;
-	t_boite	*boite;
+	t_node		*inf;
+	t_vabrouter	vache;
 
-	boite = init_boite();
-	if (boite == NULL)
-		return (NULL);
+	vache.a = a;
+	vache.b = b;
 	inf = target(b, node);
-	fill_boite(a, b, node, inf, boite);
+	fill_boite(&vache, node, inf, boite);
+	fill_boiter(&vache, node, inf, boite);
 	fill_costs(boite);
-	boite->idx = node->indice;
-	return (boite);
 }
 
-int	find_cheapest(t_list *a, t_list *b, t_boite *cheap)
+void	find_cheapest(t_list *a, t_list *b, t_boite *cheap)
 {
-	t_boite	*temp;
+	t_boite	temp;
 	t_node	*cur;
 
 	cur = a->first;
-	cheap = cost(a, b, cur);
+	cost(a, b, cur, cheap);
 	while (cur != NULL)
 	{
-		temp = cost(a, b, cur);
-		if (temp == NULL)
-			return (0);
-		if (temp->cost < cheap->cost)
-			cheap = temp;
+		ft_memset(&temp, 0, sizeof(t_boite));
+		cost(a, b, cur, &temp);
+		if (temp.cost < cheap->cost)
+			*cheap = temp;
 		cur = cur->next;
 	}
-	return (1);
 }
 
 int	move_cheapest_atob(t_list *a, t_list *b, t_boite *cheap)

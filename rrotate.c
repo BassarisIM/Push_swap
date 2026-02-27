@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:01:32 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 22:38:52 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 11:37:54 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	rrotate_ops(t_list *list)
 {
 	t_node	*cur;
 
-	if (list == NULL || list->first == NULL || list->first->next == NULL)
+	if (list->first == NULL || list->first->next == NULL)
 		return ;
 	cur = list->first;
 	while (cur->next != NULL)

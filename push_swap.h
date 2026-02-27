@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:27:10 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 22:38:27 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:27:10 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,13 @@ typedef struct s_boite
 	int		rrr_diff;
 	int		cost;
 	char	*combi;
-	int		idx;
 }			t_boite;
+
+typedef struct s_vabrouter
+{
+	t_list	*a;
+	t_list	*b;
+}			t_vabrouter;
 
 int		checknb(char **argv);
 int		doublons(t_list *list);
@@ -64,8 +69,8 @@ int		checklimits(long nb);
 long	atoicherry(char *str);
 int		fillist(char **argv, t_list *list);
 t_list	*ft_newlist(void);
-t_node	*ft_newnode(int *n);
-int		ft_listadd_back(t_list *list, t_node *new);
+t_node	*ft_newnode(int n);
+void	ft_listadd_back(t_list *list, t_node *new);
 void	ft_freelist(t_list *list);
 int		rrotate_a(t_list *a);
 int		rrotate_b(t_list *b);
@@ -80,24 +85,26 @@ int		rotate_b(t_list *b);
 int		rotate_anb(t_list *a, t_list *b);
 int		indicage(t_list *list);
 void	print_list_ar(t_list *list);
-//int		sort_simple(t_list *a, t_list *b, int nb_ops);
 int		turkish_sort(t_list *a, t_list *b, int nb_ops);
-//void	apply_depth(t_list *list);
 void	apply_stack_pos(t_list *list);
 void	apply_minmax(t_list *list);
 t_boite	*init_boite(void);
-int		find_cheapest(t_list *a, t_list *b, t_boite *cheap);
+void	find_cheapest(t_list *a, t_list *b, t_boite *cheap);
 int		move_cheapest_atob(t_list *a, t_list *b, t_boite *cheap);
 int		merge_btoa(t_list *a, t_list *b);
 void	fill_costs(t_boite *boite);
-void	fill_boite(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite);
+void	fill_boite(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite);
+void	fill_boiter(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite);
 t_node	*find_indice(t_list *list, int indice);
-//t_boite	*cost(t_list *a, t_list *b, t_node *node);
 t_boite	*init_boite(void);
 int		rrr_diff(t_list *a, t_list *b, t_boite *boite);
 int		rr_diff(t_list *a, t_list *b, t_boite *boite);
 int		rra_rb(t_list *a, t_list *b, t_boite *boite);
 int		ra_rrb(t_list *a, t_list *b, t_boite *boite);
 int		move_cheapest_atob(t_list *a, t_list *b, t_boite *cheap);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
+void	free_anb(t_list *a, t_list *b);
+void	ft_freenodes(t_list	*list);
 
 #endif

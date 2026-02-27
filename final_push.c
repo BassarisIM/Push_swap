@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:56:34 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 23:30:57 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:03:52 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static t_node	*target_upper(t_list *a, t_node *node_b)
 	}
 	else
 	{
+		while (cur->indice < node_b->indice)
+			cur = cur->next;
 		target = cur->indice;
+		cur = a->first;
 		while (cur != NULL)
 		{
 			if (cur->indice > node_b->indice && cur->indice < target)
@@ -51,19 +54,22 @@ static t_node	*target_upper(t_list *a, t_node *node_b)
 
 int	merge_btoa(t_list *a, t_list *b)
 {
-	t_boite	*boite;
-	int		count;
+	t_boite		boite;
+	int			count;
+	t_vabrouter	vache;
 
+	vache.a = a;
+	vache.b = b;
 	count = 0;
-	boite = init_boite();
-	if (boite == NULL)
-		return (0);
+	ft_memset(&boite, 0, sizeof(t_boite));
 	while (b->len > 0)
 	{
-		fill_boite(a, b, b->first, target_upper(a, b->first), boite);
-		fill_costs(boite);
-		boite->idx = b->first->indice;
-		count += move_cheapest_btoa(a, b, boite);
+		fill_boite(&vache, target_upper(vache.a, (vache.b)->first), \
+			(vache.b)->first, &boite);
+		fill_boiter(&vache, target_upper(vache.a, (vache.b)->first), \
+			(vache.b)->first, &boite);
+		fill_costs(&boite);
+		count += move_cheapest_btoa(a, b, &boite);
 	}
 	return (count);
 }

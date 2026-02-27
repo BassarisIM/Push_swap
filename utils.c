@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 23:03:21 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 23:18:21 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:17:38 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_node	*find_indice(t_list *list, int indice)
 {
 	t_node	*cur;
 
-	if (list == NULL || list->first == NULL)
+	if (list->first == NULL)
 		return (NULL);
 	cur = list->first;
 	while (cur->indice != indice)
@@ -40,21 +40,13 @@ static int	minof_four(int a, int b, int c, int d)
 	return (temp);
 }
 
-static int	min(int a, int b)
-{
-	if (a <= b)
-		return (a);
-	else
-		return (b);
-}
-
-void	fill_boite(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite)
+void	fill_boite(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite)
 {
 	boite->ra = na->stack_pos;
-	boite->rra = a->len - na->stack_pos;
+	boite->rra = (*vache).a->len - na->stack_pos;
 	boite->rb = nb->stack_pos;
-	boite->rrb = b->len - nb->stack_pos;
-	boite->rr = min(na->stack_pos, nb->stack_pos);
+	boite->rrb = (*vache).b->len - nb->stack_pos;
+	boite->rr = ft_min(na->stack_pos, nb->stack_pos);
 	if (na->stack_pos - nb->stack_pos >= 0)
 	{
 		boite->rr_diffa = na->stack_pos - nb->stack_pos;
@@ -65,16 +57,24 @@ void	fill_boite(t_list *a, t_list *b, t_node *na, t_node *nb, t_boite *boite)
 		boite->rr_diffa = 0;
 		boite->rr_diffb = nb->stack_pos - na->stack_pos;
 	}
-	boite->rrr = min(a->len - na->stack_pos, b->len - nb->stack_pos);
-	if ((a->len - na->stack_pos) - (b->len - nb->stack_pos) >= 0)
+}
+
+void	fill_boiter(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite)
+{
+	boite->rrr = ft_min(((*vache).a)->len - na->stack_pos, \
+		((*vache).b)->len - nb->stack_pos);
+	if ((((*vache).a)->len - na->stack_pos) \
+		- (((*vache).b)->len - nb->stack_pos) >= 0)
 	{
-		boite->rrr_diffa = (a->len - na->stack_pos) - (b->len - nb->stack_pos);
+		boite->rrr_diffa = (((*vache).a)->len - na->stack_pos)
+			- (((*vache).b)->len - nb->stack_pos);
 		boite->rrr_diffb = 0;
 	}
 	else
 	{
 		boite->rrr_diffa = 0;
-		boite->rrr_diffb = (b->len - nb->stack_pos) - (a->len - na->stack_pos);
+		boite->rrr_diffb = (((*vache).b)->len - nb->stack_pos) \
+			- (((*vache).a)->len - na->stack_pos);
 	}
 }
 

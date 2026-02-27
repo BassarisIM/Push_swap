@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:45:39 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 22:38:59 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 11:38:06 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	swap_ops(t_list *list)
 {
 	t_node	*temp;
 
-	if (list == NULL || list->first == NULL || list->first->next == NULL)
+	if (list->first == NULL || list->first->next == NULL)
 		return ;
 	temp = list->first->next;
 	if (temp->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 22:56:33 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/26 23:02:12 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:11:34 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,92 +45,6 @@ static void	tri_n_indices(t_list *list)
 	}
 }
 
-static void	change_max(t_list *list, t_node *node)
-{
-	t_node	*cur;
-
-	cur = list->first;
-	while (cur != NULL)
-	{
-		cur->ismax = 0;
-		cur = cur->next;
-	}
-	node->ismax = 1;
-	list->max = node->indice;
-}
-
-static void	change_min(t_list *list, t_node *node)
-{
-	t_node	*cur;
-
-	cur = list->first;
-	while (cur != NULL)
-	{
-		cur->ismin = 0;
-		cur = cur->next;
-	}
-	node->ismin = 1;
-	list->min = node->indice;
-}
-
-void	apply_minmax(t_list *list)
-{
-	t_node	*cur;
-
-	list->min = 2147483647;
-	list->max = 0;
-	if (list->first == NULL)
-		return ;
-	cur = list->first;
-	while (cur != NULL)
-	{
-		if (cur->indice > list->max)
-			change_max(list, cur);
-		if (cur->indice < list->min)
-			change_min(list, cur);
-		cur = cur->next;
-	}
-}
-
-void	apply_stack_pos(t_list *list)
-{
-	t_node	*cur;
-
-	if (list == NULL || list->first == NULL)
-		return ;
-	if (list->first->next == NULL)
-	{
-		cur = list->first;
-		cur->stack_pos = 0;
-		return ;
-	}
-	cur = list->first;
-	cur->stack_pos = 0;
-	while (cur->next != NULL)
-	{
-		cur = cur->next;
-		cur->stack_pos = cur->pre->stack_pos + 1;
-	}
-}
-/* void	apply_depth(t_list *list)
-{
-	t_node	*cur;
-
-	if (list == NULL || list->first == NULL)
-		return ;
-	cur = list->first;
-	while (cur != NULL)
-	{
-		if (cur->stack_pos == (list->len / 2) && list->len % 2 == 1)
-			cur->depth = 0;
-		else if (cur->stack_pos < list->len / 2)
-			cur->depth = 1;
-		else
-			cur->depth = -1;
-		cur = cur->next;
-	}
-} */
-
 static void	report_indices(t_list *list, t_list *temp)
 {
 	t_node	*cur_list;
@@ -147,13 +61,27 @@ static void	report_indices(t_list *list, t_list *temp)
 	}
 }
 
+void	apply_stack_pos(t_list *list)
+{
+	t_node	*cur;
+	int		p;
+
+	p = 0;
+	cur = list->first;
+	while (cur != NULL)
+	{
+		cur->stack_pos = p++;
+		cur = cur->next;
+	}
+}
+
 int	indicage(t_list *list)
 {
 	t_list	*temp;
 	t_node	*base;
 	t_node	*compare;
 
-	if (list == NULL || list->first == NULL)
+	if (list->first == NULL)
 		return (0);
 	temp = ft_newlist();
 	if (temp == NULL)
@@ -161,7 +89,7 @@ int	indicage(t_list *list)
 	base = list->first;
 	while (base != NULL)
 	{
-		compare = ft_newnode(&(base->nb));
+		compare = ft_newnode(base->nb);
 		if (compare == NULL)
 			return (ft_freelist(temp), 0);
 		compare->nb = base->nb;

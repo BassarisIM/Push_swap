@@ -6,7 +6,7 @@
 #    By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/09 14:51:09 by sohollar          #+#    #+#              #
-#    Updated: 2026/02/18 19:28:28 by sohollar         ###   ########.fr        #
+#    Updated: 2026/02/27 14:27:54 by sohollar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ CFLAGS			= -g3 -g -Wall -Wextra -Werror -I .
 
 SRCS			= push_swap.c fillist.c push_swap_checks.c \
 					pushes.c swaps.c rotate.c rrotate.c indicage.c \
-					affichages.c sort.c
+					affichages.c sort.c calculs.c final_push.c \
+					moves.c utils.c minmax.c free.c
 
 OBJS			= $(SRCS:.c=.o)
 LIBFT			= ./Libft00/libft.a
