@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 20:24:58 by sohollar          #+#    #+#             */
-/*   Updated: 2025/12/11 15:22:09 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:48:00 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str);
 	return (i);
 } */
 
-size_t	ft_min(size_t a, size_t b)
+static size_t	ft_min(size_t a, size_t b)
 {
 	if (a > b)
 		return (b);

@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:59:01 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 14:28:12 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 18:25:13 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ long	atoicherry(char *str)
 ** @brief cette fonction sert a imprimer \
 	erreur, free la list et return un error code
 */
-static int	ft_error(t_list *list, char *str, int error_code)
+static int	ft_error(t_list *list, t_list *b, char *str, int error_code)
 {
-	ft_freenodes(list);
-	free(list);
+	ft_freelist(list);
+	free(b);
 	ft_printf_fd(2, str);
 	return (error_code);
 }
@@ -63,15 +63,15 @@ int	main(int argc, char **argv)
 	if (list == NULL || b == NULL)
 		return (0);
 	if (!fillist(argv, list))
-		return (ft_error(list, "Error invalid list\n", 0));
+		return (ft_error(list, b, "Error invalid list\n", 0));
 	if (!doublons(list))
-		return (ft_error(list, "Error duplicate numbers\n", 0));
+		return (ft_error(list, b, "Error duplicate numbers\n", 0));
 	if (!indicage(list))
-		return (free_anb(list, b), 0);
+		return (ft_error(list, b, "Error\n", 0));
 	print_list_ar(list);
 	temp = turkish_sort(list, b, nb_ops);
 	if (temp == 0)
-		return (free_anb(list, b), 0);
+		return (ft_freenodes(b), ft_error(list, b, "Error\n", 0));
 	nb_ops += temp;
 	ft_printf_fd(1, "%d\n", argc - 1);
 	ft_printf_fd(1, "%d\n", nb_ops);

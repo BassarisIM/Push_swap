@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:15:56 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 16:13:29 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/27 18:00:03 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static int	small_ontop(t_list *list)
 int	turkish_sort(t_list *a, t_list *b, int nb_ops)
 {
 	t_boite	*cheap;
-	int		nb;
 
 	if (a->len < 4)
 		return (nb_ops + petits_cas(a));
@@ -93,9 +92,6 @@ int	turkish_sort(t_list *a, t_list *b, int nb_ops)
 	}
 	ft_printf_fd(1, "\n%d\n\n", nb_ops);
 	nb_ops += sort_three(a);
-	nb = merge_btoa(a, b);
-	if (nb == 0)
-		return (0);
-	nb_ops += nb;
-	return (nb_ops + small_ontop(a));
+	nb_ops += merge_btoa(a, b);
+	return (free(cheap), nb_ops + small_ontop(a));
 }
