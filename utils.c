@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 23:03:21 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 14:17:38 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:07:21 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,47 +35,21 @@ static int	minof_four(int a, int b, int c, int d)
 		temp = c;
 	if (d < temp)
 		temp = d;
-	else
-		return (temp);
 	return (temp);
 }
 
 void	fill_boite(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite)
 {
 	boite->ra = na->stack_pos;
-	boite->rra = (*vache).a->len - na->stack_pos;
+	boite->rra = (vache->a->len - na->stack_pos) % vache->a->len;
 	boite->rb = nb->stack_pos;
-	boite->rrb = (*vache).b->len - nb->stack_pos;
+	boite->rrb = (vache->b->len - nb->stack_pos) % vache->b->len;
 	boite->rr = ft_min(na->stack_pos, nb->stack_pos);
-	if (na->stack_pos - nb->stack_pos >= 0)
-	{
-		boite->rr_diffa = na->stack_pos - nb->stack_pos;
-		boite->rr_diffb = 0;
-	}
-	else
-	{
-		boite->rr_diffa = 0;
-		boite->rr_diffb = nb->stack_pos - na->stack_pos;
-	}
-}
-
-void	fill_boiter(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite)
-{
-	boite->rrr = ft_min(((*vache).a)->len - na->stack_pos, \
-		((*vache).b)->len - nb->stack_pos);
-	if ((((*vache).a)->len - na->stack_pos) \
-		- (((*vache).b)->len - nb->stack_pos) >= 0)
-	{
-		boite->rrr_diffa = (((*vache).a)->len - na->stack_pos)
-			- (((*vache).b)->len - nb->stack_pos);
-		boite->rrr_diffb = 0;
-	}
-	else
-	{
-		boite->rrr_diffa = 0;
-		boite->rrr_diffb = (((*vache).b)->len - nb->stack_pos) \
-			- (((*vache).a)->len - na->stack_pos);
-	}
+	boite->rr_diffa = na->stack_pos - boite->rr;
+	boite->rr_diffb = nb->stack_pos - boite->rr;
+	boite->rrr = ft_min(boite->rra, boite->rrb);
+	boite->rrr_diffa = boite->rra - boite->rrr;
+	boite->rrr_diffb = boite->rrb - boite->rrr;
 }
 
 void	fill_costs(t_boite *boite)
@@ -96,9 +70,9 @@ void	fill_costs(t_boite *boite)
 	boite->cost = minof_four(a, b, c, d);
 	if (boite->cost == a)
 		boite->combi = "ra_rrb";
-	if (boite->cost == b)
+	else if (boite->cost == b)
 		boite->combi = "rra_rb";
-	if (boite->cost == c)
+	else if (boite->cost == c)
 		boite->combi = "rr_diff";
 	else
 		boite->combi = "rrr_diff";

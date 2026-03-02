@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:42:33 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/25 17:59:24 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/28 20:28:06 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	checknb(char **argv)
 	while (argv[i])
 	{
 		j = 0;
+		if (only_sep(argv[i]))
+			return (0);
 		while (argv[i][j])
 		{
 			if (isok(argv, i, j))
@@ -84,6 +86,8 @@ int	checknb(char **argv)
 			else
 				return (0);
 		}
+		if (j == 0)
+			return (0);
 		i++;
 	}
 	return (1);

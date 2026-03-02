@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 22:19:01 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 16:34:43 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:03:23 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	cost(t_list *a, t_list *b, t_node *node, t_boite *boite)
 	vache.b = b;
 	inf = target(b, node);
 	fill_boite(&vache, node, inf, boite);
-	fill_boiter(&vache, node, inf, boite);
 	fill_costs(boite);
 }
 

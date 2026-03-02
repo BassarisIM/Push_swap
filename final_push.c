@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:56:34 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 17:03:52 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/28 19:27:50 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	merge_btoa(t_list *a, t_list *b)
 	while (b->len > 0)
 	{
 		fill_boite(&vache, target_upper(vache.a, (vache.b)->first), \
-			(vache.b)->first, &boite);
-		fill_boiter(&vache, target_upper(vache.a, (vache.b)->first), \
 			(vache.b)->first, &boite);
 		fill_costs(&boite);
 		count += move_cheapest_btoa(a, b, &boite);

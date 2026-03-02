@@ -6,18 +6,18 @@
 #    By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/09 14:51:09 by sohollar          #+#    #+#              #
-#    Updated: 2026/02/27 14:27:54 by sohollar         ###   ########.fr        #
+#    Updated: 2026/03/02 16:43:10 by sohollar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= push_swap
 CC				= cc
-CFLAGS			= -g3 -g -Wall -Wextra -Werror -I .
+CFLAGS			= -Wall -Wextra -Werror -I .
 #INCLUDES		= push_swap.h
 
 SRCS			= push_swap.c fillist.c push_swap_checks.c \
 					pushes.c swaps.c rotate.c rrotate.c indicage.c \
-					affichages.c sort.c calculs.c final_push.c \
+					sort.c calculs.c final_push.c \
 					moves.c utils.c minmax.c free.c
 
 OBJS			= $(SRCS:.c=.o)

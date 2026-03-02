@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:27:10 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 14:27:10 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:43:03 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ int		rotate_a(t_list *a);
 int		rotate_b(t_list *b);
 int		rotate_anb(t_list *a, t_list *b);
 int		indicage(t_list *list);
-void	print_list_ar(t_list *list);
-int		turkish_sort(t_list *a, t_list *b, int nb_ops);
+int		turkish_sort(t_list *a, t_list *b);
 void	apply_stack_pos(t_list *list);
 void	apply_minmax(t_list *list);
 t_boite	*init_boite(void);
@@ -94,7 +93,6 @@ int		move_cheapest_atob(t_list *a, t_list *b, t_boite *cheap);
 int		merge_btoa(t_list *a, t_list *b);
 void	fill_costs(t_boite *boite);
 void	fill_boite(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite);
-void	fill_boiter(t_vabrouter *vache, t_node *na, t_node *nb, t_boite *boite);
 t_node	*find_indice(t_list *list, int indice);
 t_boite	*init_boite(void);
 int		rrr_diff(t_list *a, t_list *b, t_boite *boite);
@@ -106,5 +104,6 @@ int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 void	free_anb(t_list *a, t_list *b);
 void	ft_freenodes(t_list	*list);
+int		only_sep(char *str);
 
 #endif

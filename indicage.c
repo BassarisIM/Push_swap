@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 22:56:33 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 14:11:34 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/28 18:50:44 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	indicage(t_list *list)
 	t_node	*compare;
 
 	if (list->first == NULL)
-		return (0);
+		return (1);
 	temp = ft_newlist();
 	if (temp == NULL)
 		return (0);

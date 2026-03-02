@@ -6,11 +6,26 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:59:01 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 18:25:13 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:42:44 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	only_sep(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (is_sep(str[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
 
 long	atoicherry(char *str)
 {
@@ -34,6 +49,22 @@ long	atoicherry(char *str)
 	return (nb * sign);
 }
 
+static int	is_sorted(t_list *list)
+{
+	t_node	*cur;
+
+	if (list->first == NULL)
+		return (1);
+	cur = list->first;
+	while (cur->next != NULL)
+	{
+		cur = cur->next;
+		if (! (cur->nb > cur->pre->nb))
+			return (0);
+	}
+	return (1);
+}
+
 /*
 ** @brief cette fonction sert a imprimer \
 	erreur, free la list et return un error code
@@ -50,32 +81,27 @@ int	main(int argc, char **argv)
 {
 	t_list	*list;
 	t_list	*b;
-	int		nb_ops;
-	int		temp;
 
-	nb_ops = 0;
 	if (argc == 1)
 		return (0);
 	if (!checknb(argv))
-		return (ft_printf_fd(2, "Error not numbers\n"), 0);
+		return (ft_printf_fd(2, "Error\n"), 0);
 	list = ft_newlist();
-	b = ft_newlist();
-	if (list == NULL || b == NULL)
+	if (list == NULL)
 		return (0);
+	b = ft_newlist();
+	if (b == NULL)
+		return (free(list), 0);
 	if (!fillist(argv, list))
-		return (ft_error(list, b, "Error invalid list\n", 0));
+		return (ft_error(list, b, "Error\n", 0));
 	if (!doublons(list))
-		return (ft_error(list, b, "Error duplicate numbers\n", 0));
+		return (ft_error(list, b, "Error\n", 0));
+	if (is_sorted(list))
+		return (ft_freelist(list), free(b), 0);
 	if (!indicage(list))
 		return (ft_error(list, b, "Error\n", 0));
-	print_list_ar(list);
-	temp = turkish_sort(list, b, nb_ops);
-	if (temp == 0)
+	if (!turkish_sort(list, b))
 		return (ft_freenodes(b), ft_error(list, b, "Error\n", 0));
-	nb_ops += temp;
-	ft_printf_fd(1, "%d\n", argc - 1);
-	ft_printf_fd(1, "%d\n", nb_ops);
-	print_list_ar(list);
 	free_anb(list, b);
 	return (0);
 }

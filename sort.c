@@ -6,7 +6,7 @@
 /*   By: sohollar <sohollar@student.42paris.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:15:56 by sohollar          #+#    #+#             */
-/*   Updated: 2026/02/27 18:00:03 by sohollar         ###   ########.fr       */
+/*   Updated: 2026/02/28 19:27:54 by sohollar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static int	sort_three(t_list *list)
 		return (rrotate_a(list), 1);
 	if (a > b && b < c && a > c)
 		return (rotate_a(list), 1);
-	else
-		return (swap_a(list), rrotate_a(list), 2);
+	return (swap_a(list), rrotate_a(list), 2);
 }
 
 static int	petits_cas(t_list *list)
@@ -73,25 +72,24 @@ static int	small_ontop(t_list *list)
 	return (count);
 }
 
-int	turkish_sort(t_list *a, t_list *b, int nb_ops)
+int	turkish_sort(t_list *a, t_list *b)
 {
 	t_boite	*cheap;
 
 	if (a->len < 4)
-		return (nb_ops + petits_cas(a));
-	nb_ops += push_b(b, a);
+		return (petits_cas(a), 1);
+	push_b(b, a);
 	if (a->len > 3)
-		nb_ops += push_b(b, a);
+		push_b(b, a);
 	cheap = init_boite();
 	if (cheap == NULL)
 		return (0);
 	while (a->len > 3)
 	{
 		find_cheapest(a, b, cheap);
-		nb_ops += move_cheapest_atob(a, b, cheap);
+		move_cheapest_atob(a, b, cheap);
 	}
-	ft_printf_fd(1, "\n%d\n\n", nb_ops);
-	nb_ops += sort_three(a);
-	nb_ops += merge_btoa(a, b);
-	return (free(cheap), nb_ops + small_ontop(a));
+	sort_three(a);
+	merge_btoa(a, b);
+	return (free(cheap), small_ontop(a), 1);
 }
